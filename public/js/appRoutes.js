@@ -1,21 +1,25 @@
-angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+angular.module('RestCentralApp').config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 
 	$routeProvider
 
-		// home page
-		.when('/', {
-			templateUrl: 'views/home.html',
-			controller: 'MainController'
+		.when('/addApp', {
+			templateUrl: 'views/AddApp.html',
+			controller: 'AddAppController'
 		})
-
-		.when('/nerds', {
-			templateUrl: 'views/nerd.html',
-			controller: 'NerdController'
+		.when('/viewApps', {
+			templateUrl: 'views/ViewAllApps.html',
+			controller: 'ViewAppController'	
 		})
-
-		.when('/geeks', {
-			templateUrl: 'views/geek.html',
-			controller: 'GeekController'	
+		.when('/editApp/:appId', {
+			templateUrl: 'views/AddApp.html',
+			controller: 'EditAppController'	
+		})
+		.when('/viewResult/:appId', {
+			templateUrl: 'views/ViewResult.html',
+			controller: 'ViewResultController'	
+		})
+		.otherwise({
+			redirectTo: '/viewApps'
 		});
 
 	$locationProvider.html5Mode(true);

@@ -1,0 +1,20 @@
+<div>
+    <div class="appContainer" ng-repeat="application in applications">
+        <div class="dataLabel">Application Name:</div><div class="data">{{application.name}}</div><br />
+        <div class="dataLabel">URL:</div> <div class="data">{{application.url}}</div><br />
+        <div class="dataLabel">Request type:</div> <div class="data">{{application.requestType}}</div><br />
+        <div>Path Parameters</div>
+        <div ng-repeat="item in application.pathParams">
+            <div class="dataLabel">Key:</div> <div class="data">{{item.key}}</div>
+            <div class="dataLabel">Value:</div> <div class="data">{{item.value}}</div>
+        </div>
+        <div>Query Parameters</div>
+        <div ng-repeat="item in application.queryParams">
+            <div class="dataLabel">Key:</div> <div class="data">{{item.key}}</div>
+            <div class="dataLabel">Value:</div> <div class="data">{{item.value}}</div>
+        </div>
+        <button ng-click="edit(application._id)">Edit</button>
+        <a href="/viewResult/{{application._id}}">View Results</a>
+        <button ng-click="removeApplication(application._id)">Delete</button>
+    </div>
+</div>

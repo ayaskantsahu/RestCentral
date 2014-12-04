@@ -9,8 +9,6 @@ var methodOverride = require('method-override');
 	
 // config files
 var db = require('./config/db');
-var Client = require('node-rest-client').Client;
-var client = new Client();
 var models = require('./app/models/Models.js');
 var appDao = require('./app/dao/ApplicationDao.js');
 var port = process.env.PORT || 8080; // set our port
@@ -23,6 +21,10 @@ app.use(bodyParser.urlencoded({ extended: true })); // parse application/x-www-f
 
 app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
+
+app.onCallApi = function(appId, res){
+
+}
 
 // routes ==================================================
 require('./app/routes')(app); // pass our application into our routes
@@ -43,22 +45,5 @@ var sampleApp = new models.Application(
     }
 )
 
-appDao.saveApplication(sampleApp);
+appDao.saveApplication(sampleApp, function(dummy){});
 
-appDao.getApplication(models.Application, "547befc66087304028172905", function(application){
-    console.log(application);
-    client.registerMethod(application.name, application.url, application.requestType);
-    args = {
-        parameters : {},
-        headers:{"Content-Type": "application/json"} 
-    };
-    for(var i = 0; i < application.queryParams.length; i++)
-    {
-        args.parameters[application.queryParams[i].key] = application.queryParams[i].value;
-    }
-    console.log(args);
-    client.methods[application.name](args, function(data,response){
-        console.log(data);
-        // raw response
-    });
-});

@@ -1,0 +1,29 @@
+<div>
+    <div class="appContainer">
+        <div class="dataLabel">Application Name:</div><div class="data"> <input type="text" ng-model="application.name" /></div><br />
+        <div class="dataLabel">URL:</div> <div class="data"><input type="url" ng-model="application.url" /></div><br />
+        <div class="dataLabel">Request type:</div> <div class="data"><select ng-model="application.requestType" ng-options="i for i in possibleTypes"></select></div><br />
+        <button ng-click="addPathParam()">Add Path Param</button> <br />
+        <div ng-repeat="item in application.pathParams">
+            <div>
+                <div class="dataLabel">Key:</div> <div class="data"><input type="text" ng-model="item.key" /></div>
+            </div>
+            <div>
+                <div class="dataLabel">Value:</div> <div class="data"><input type="text" ng-model="item.value" /></div>
+            </div>
+            <button ng-click="removePathParam($index)">Delete</button> <br />
+        </div>
+        <button ng-click="addQueryParams()">Add Query Param</button> <br />
+        <div ng-repeat="item in application.queryParams">
+            <div>
+                <div class="dataLabel">Key:</div> <div class="data"><input type="text" ng-model="item.key" /></div>
+            </div>
+            <div>
+                <div class="dataLabel">Value:</div> <div class="data"><input type="text" ng-model="item.value" /></div>
+            </div>
+            <button ng-click="removeQueryParam($index)">Delete</button> <br />
+        </div>
+        <button ng-click="reset()">RESET</button>
+        <button ng-click="saveApplication(application)">SAVE</button>
+    </div>
+</div>
