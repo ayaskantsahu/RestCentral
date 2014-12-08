@@ -19,10 +19,11 @@ module.exports = {
         });
     },
     
-    getAllApplications : function(callback){
-        models.Application.find({}, function (err, applications) {
+    getAllApplications : function(userId, callback){
+        console.log("searching apps for " + userId);
+        models.Application.find({userId : userId}, function (err, applications) {
             if (err) {
-                return handleError(err);
+                console.log(err);
             }
             callback(applications);
         });

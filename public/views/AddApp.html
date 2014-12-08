@@ -1,29 +1,92 @@
-<div>
-    <div class="appContainer">
-        <div class="dataLabel">Application Name:</div><div class="data"> <input type="text" ng-model="application.name" /></div><br />
-        <div class="dataLabel">URL:</div> <div class="data"><input type="url" ng-model="application.url" /></div><br />
-        <div class="dataLabel">Request type:</div> <div class="data"><select ng-model="application.requestType" ng-options="i for i in possibleTypes"></select></div><br />
-        <button ng-click="addPathParam()">Add Path Param</button> <br />
-        <div ng-repeat="item in application.pathParams">
-            <div>
-                <div class="dataLabel">Key:</div> <div class="data"><input type="text" ng-model="item.key" /></div>
-            </div>
-            <div>
-                <div class="dataLabel">Value:</div> <div class="data"><input type="text" ng-model="item.value" /></div>
-            </div>
-            <button ng-click="removePathParam($index)">Delete</button> <br />
+<form class="form-horizontal" style="width: 75%;">
+    <div class="form-group">
+        <label for="appName" class="control-label col-xs-4">Application Name</label>
+        <div class="col-xs-8">
+            <input type="text" class="form-control" id="appName" placeholder="Application Name" ng-model="application.name">
         </div>
-        <button ng-click="addQueryParams()">Add Query Param</button> <br />
-        <div ng-repeat="item in application.queryParams">
-            <div>
-                <div class="dataLabel">Key:</div> <div class="data"><input type="text" ng-model="item.key" /></div>
-            </div>
-            <div>
-                <div class="dataLabel">Value:</div> <div class="data"><input type="text" ng-model="item.value" /></div>
-            </div>
-            <button ng-click="removeQueryParam($index)">Delete</button> <br />
-        </div>
-        <button ng-click="reset()">RESET</button>
-        <button ng-click="saveApplication(application)">SAVE</button>
     </div>
-</div>
+    <div class="form-group">
+        <label for="url" class="control-label col-xs-4">URL</label>
+        <div class="col-xs-8">
+            <input type="url" class="form-control" id="url" placeholder="URL" ng-model="application.url">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="reqType" class="control-label col-xs-4">Request Type</label>
+        <div class="col-xs-8">
+            <select class="form-control" id="reqType" ng-model="application.requestType" ng-options="i for i in possibleTypes"></select>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-offset-4 col-xs-8">
+            <button ng-click="addPathParam()" type="button" class="btn btn-primary">Add Path Param</button>
+        </div>
+    </div>
+    <div class="form-group">
+        <div ng-repeat="item in application.pathParams">
+            <label class="control-label col-xs-4"></label>
+            <div class="controls form-inline col-xs-8">
+                <label for="inputKey">Key</label>
+                <input type="text" class="input-small" placeholder="Key" ng-model="item.key" id="inputKey">
+                <label for="inputValue">Value</label>
+                <input type="text" class="input-small" placeholder="Value" ng-model="item.value" id="inputValue">
+                <button type="button" class="btn btn-primary" ng-click="removePathParam($index)">Delete</button>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-offset-4 col-xs-8">
+            <button ng-click="addQueryParams()" type="button" class="btn btn-primary">Add Query Param</button>
+        </div>
+    </div>
+    <div class="form-group">
+        <div ng-repeat="item in application.queryParams">
+            <label class="control-label col-xs-4"></label>
+            <div class="controls form-inline col-xs-8">
+                <label for="inputKey">Key</label>
+                <input type="text" class="input-small" placeholder="Key" ng-model="item.key" id="inputKey">
+                <label for="inputValue">Value</label>
+                <input type="text" class="input-small" placeholder="Value" ng-model="item.value" id="inputValue">
+                <button type="button" class="btn btn-primary" ng-click="removeQueryParams($index)">Delete</button>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-offset-4 col-xs-8">
+            <button ng-click="addRenameKeys()" type="button" class="btn btn-primary">Add Rename Param</button>
+        </div>
+    </div>
+    <div class="form-group">
+        <div ng-repeat="item in application.renameKeys">
+            <label class="control-label col-xs-4"></label>
+            <div class="controls form-inline col-xs-8">
+                <label for="inputKey">Original</label>
+                <input type="text" class="input-small" placeholder="Original" ng-model="item.original" id="inputKey">
+                <label for="inputValue">Replacement</label>
+                <input type="text" class="input-small" placeholder="Replacement" ng-model="item.replacement" id="inputValue">
+                <button type="button" class="btn btn-primary" ng-click="removeRenameKeys($index)">Delete</button>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-offset-4 col-xs-8">
+            <button ng-click="addHideKeys()" type="button" class="btn btn-primary">Add Hide Param</button>
+        </div>
+    </div>
+    <div class="form-group">
+        <div ng-repeat="item in application.hideKeys">
+            <label class="control-label col-xs-4"></label>
+            <div class="controls form-inline col-xs-8">
+                <label for="inputKey">Key</label>
+                <input type="text" class="input-small" placeholder="Key" ng-model="item.key" id="inputKey">
+                <button type="button" class="btn btn-primary" ng-click="removeHideKeys($index)">Delete</button>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-offset-4 col-xs-8">
+            <button class="btn btn-primary" type="button" ng-click="reset()">RESET</button>
+            <button class="btn btn-primary" type="button" ng-click="saveApplication(application)">SAVE</button>
+        </div>
+    </div>
+</form>

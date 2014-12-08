@@ -8,7 +8,8 @@ angular.module('RestCentralApp').service(
                     getApplications: getApplications,
                     removeApplication: removeApplication,
                     getApplication: getApplication,
-                    callApi: callApi
+                    callApi: callApi,
+                    updateApplication : updateApplication
                 });
 
                 // ---
@@ -65,6 +66,16 @@ angular.module('RestCentralApp').service(
                         url: "/deleteApp/"+appId
                     });
                     return( request.then( handleSuccess, handleError ) );
+                }
+                
+                function updateApplication(app){
+                    var request = $http({
+                        method: "post",
+                        url: "/editApp",
+                        data: {
+                            app: app
+                        }
+                    });
                 }
 
 
