@@ -1,2 +1,9 @@
 <div>{{result}}</div>
-<div id="result"></div>
+
+<button ng-if="parent" ng-click="backToParent()" type="button" class="btn btn-primary">Back</button>
+<div class="list-group">
+    <a href="#" ng-click="traverseChild(key)" ng-if="isObject" class="list-group-item" ng-repeat="(key, value) in result">
+        {{key}}
+    </a>
+    
+</div>

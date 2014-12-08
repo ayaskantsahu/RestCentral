@@ -92,27 +92,3 @@ appDao.getAllApplications(sampleUser._id, function(apps){
    }
 });
 
-var json = {
-    delhi : {
-	location : "ab",
-	girls : "hot"
-    },
-    mumbai : {
-	location : "mm",
-	girls : "ok"
-    },
-    chennai : {
-	location : "nn",
-	girls : "bad"
-    }
-}
-
-helper.deleteNode(json, "location");
-console.log(json);
-
-console.log(helper.extractNode(json, "delhi"));
-
-helper.renameNode(json, "girls", "chicks");
-console.log(json);
-
-

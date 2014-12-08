@@ -84,6 +84,12 @@
         </div>
     </div>
     <div class="form-group">
+        <label for="extract" class="control-label col-xs-4">Extract Key</label>
+        <div class="col-xs-8">
+            <input type="text" class="form-control" id="extract" placeholder="Key to extract" ng-model="application.extractKey">
+        </div>
+    </div>
+    <div class="form-group">
         <div class="col-xs-offset-4 col-xs-8">
             <button class="btn btn-primary" type="button" ng-click="reset()">RESET</button>
             <button class="btn btn-primary" type="button" ng-click="saveApplication(application)">SAVE</button>

@@ -9,13 +9,22 @@ angular.module('RestCentralApp').service(
                     removeApplication: removeApplication,
                     getApplication: getApplication,
                     callApi: callApi,
-                    updateApplication : updateApplication
+                    updateApplication : updateApplication,
+                    logOut : logOut
                 });
 
                 // ---
                 // PUBLIC METHODS.
                 // ---
-
+                
+                function logOut() {
+                    var request = $http({
+                        method: "get",
+                        url: "/logout"
+                    });
+                    return( request.then( handleSuccess, handleError ) );
+                };
+                
                 function callApi( appId ) {
                     var request = $http({
                         method: "get",

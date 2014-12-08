@@ -1,6 +1,14 @@
 var app = angular.module('RestCentralApp', ['ngRoute']);
 var possibleTypes = ["GET", "POST"];
 
+
+app.controller('parentController', function($scope, RestCentralService, $window) {
+    $scope.logOut = function(){
+        RestCentralService.logOut();
+        $window.location.href = "/login";
+    }
+});
+
 app.controller('AddAppController', function($scope, RestCentralService, $location) {
 	
     var application = {};
@@ -106,13 +114,41 @@ app.controller('EditAppController', function($scope, RestCentralService, $routeP
 
 app.controller('ViewResultController', function($scope, RestCentralService, $routeParams){
     var appId = $routeParams.appId;
+    var root = null;
+    var sequence = [];
+    var currentParent = null;
     RestCentralService.callApi(appId).then(function(result){
         if (typeof result === "string") {
             result = JSON.parse(result);
         }
-       $scope.result = result;
-       var tbl = prettyPrint( result );
-       var container = document.getElementById('result');
-       container.appendChild(tbl);
+        root = result;
+        $scope.result = result;
+        $scope.parent = false;
+        console.log(typeof $scope.result);
+        $scope.isObject = typeof $scope.result === "object";
+        //var tbl = prettyPrint( result );
+        //var container = document.getElementById('result');
+        //container.appendChild(tbl);
     });
+    
+    $scope.traverseChild = function(child){
+        $scope.parent = true;
+        sequence.push(child);
+        $scope.result = $scope.result[child];
+        $scope.isObject = typeof $scope.result === "object";
+    }
+    
+    $scope.backToParent = function(){
+        sequence.pop();
+        if (sequence.length == 0) {
+            $scope.parent = false;
+        }
+        var destination = root
+        for(index in sequence)
+        {
+            destination = destination[sequence[index]];
+        }
+        $scope.result = destination;
+        $scope.isObject = typeof $scope.result === "object";
+    }
 });

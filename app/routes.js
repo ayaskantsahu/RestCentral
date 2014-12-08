@@ -12,8 +12,15 @@ module.exports = function(app, passport) {
 
 	// frontend routes =========================================================
 	// route to handle all angular requests
-	app.get('/home', function(req, res) {
-		res.sendfile('./public/index.html');
+
+	app.get('/', function(req, res) {
+		console.log("/");
+		if (req.user) {
+			res.sendfile('./public/index.html');
+		}
+		else {
+			res.sendfile('./public/views/login.html');
+		}
 	});
 	
 	app.get('/callApi',function(req,res){
@@ -51,7 +58,7 @@ module.exports = function(app, passport) {
 			    for(var index = 0; index < application.hideKeys.length; index++)
 			    {
 				console.log("hiding keys");
-				helper.deleteNode(tempData, application.renameKeys[index].key);
+				helper.deleteNode(tempData, application.hideKeys[index].key);
 			    }
 			    res.json(tempData);
 			});
@@ -113,7 +120,7 @@ module.exports = function(app, passport) {
 	
 	/* Handle Login POST */
 	app.post('/login', passport.authenticate('login', {
-		successRedirect: '/home',
+		successRedirect: '/index',
 		failureRedirect: '/relogin',
 		failureFlash : true 
 	}));
@@ -129,12 +136,12 @@ module.exports = function(app, passport) {
        
 	/* Handle Registration POST */
 	app.post('/signup', passport.authenticate('signup', {
-		successRedirect: '/home',
+		successRedirect: '/login',
 		failureRedirect: '/signup',
 		failureFlash : true 
 	}));
 	
-	app.get('/signout', function(req, res) {
+	app.get('/logout', function(req, res) {
 		req.logout();
 		res.redirect('/');
 	});
@@ -147,6 +154,31 @@ module.exports = function(app, passport) {
 		// Display the Login page with any flash message, if any
 		res.sendfile('./public/views/login.html');
 	});
+	
+	app.get('/index', function(req, res) {
+		console.log("index");
+		if (req.user) {
+			res.sendfile('./public/index.html');
+		}
+		else {
+			res.sendfile('./public/views/login.html');
+		}
+		
+	});
+	
+
+	
+	app.get('*', function(req, res) {
+		console.log("*");
+		if (req.user) {
+			res.sendfile('./public/index.html');
+		}
+		else {
+			res.sendfile('./public/views/login.html');
+		}
+	});
+	
+	
        
 	
 
